@@ -3,6 +3,7 @@ package com.londonappbrewery.destini;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
@@ -10,8 +11,8 @@ public class MainActivity extends AppCompatActivity {
     // TODO: Steps 4 & 8 - Declare member variables here:
     private int mPosition;
     private TextView mStoryText;
-    private TextView mButtonTop;
-    private TextView mButtonBottom;
+    private Button mButtonTop;
+    private Button mButtonBottom;
     private Story[] mStories = {
             new Story(R.string.T1_Story, R.string.T1_Ans1, R.string.T1_Ans2),
             new Story(R.string.T2_Story, R.string.T2_Ans1, R.string.T2_Ans2),
@@ -33,8 +34,8 @@ public class MainActivity extends AppCompatActivity {
         }
 
         mStoryText = (TextView) findViewById(R.id.storyTextView);
-        mButtonTop = (TextView) findViewById(R.id.buttonTop);
-        mButtonBottom = (TextView) findViewById(R.id.buttonBottom);
+        mButtonTop = (Button) findViewById(R.id.buttonTop);
+        mButtonBottom = (Button) findViewById(R.id.buttonBottom);
 
         proceed();
 
