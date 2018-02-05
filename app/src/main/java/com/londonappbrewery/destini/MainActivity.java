@@ -77,13 +77,13 @@ public class MainActivity extends AppCompatActivity {
             mButtonTop.setText(nextStory.getFirstAnswer());
         }
         else {
-            mButtonTop.setText("");
+            mButtonTop.setVisibility(View.GONE);
         }
 
         if (nextStory.getSecondAnswer() != 0) {
             mButtonBottom.setText(nextStory.getSecondAnswer());
         } else {
-            mButtonBottom.setText("");
+            mButtonBottom.setVisibility(View.GONE);
         }
     }
 
