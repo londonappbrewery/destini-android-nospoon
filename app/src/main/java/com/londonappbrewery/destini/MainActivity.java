@@ -2,29 +2,94 @@ package com.londonappbrewery.destini;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
 
     // TODO: Steps 4 & 8 - Declare member variables here:
-
+    private int mPosition;
+    private TextView mStoryText;
+    private TextView mButtonTop;
+    private TextView mButtonBottom;
+    private Story[] mStories = {
+            new Story(R.string.T1_Story, R.string.T1_Ans1, R.string.T1_Ans2),
+            new Story(R.string.T2_Story, R.string.T2_Ans1, R.string.T2_Ans2),
+            new Story(R.string.T3_Story, R.string.T3_Ans1, R.string.T3_Ans2),
+            new Story(R.string.T4_End, 0, 0),
+            new Story(R.string.T5_End, 0, 0),
+            new Story(R.string.T6_End, 0, 0),
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        if (savedInstanceState != null) {
+            mPosition = savedInstanceState.getInt("position");
+        } else {
+            mPosition = 0;
+        }
 
-        // TODO: Step 5 - Wire up the 3 views from the layout to the member variables:
+        mStoryText = (TextView) findViewById(R.id.storyTextView);
+        mButtonTop = (TextView) findViewById(R.id.buttonTop);
+        mButtonBottom = (TextView) findViewById(R.id.buttonBottom);
 
+        proceed();
 
+        mButtonTop.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (mPosition == 0 || mPosition == 1) {
+                    mPosition = 2;
+                } else if (mPosition == 2) {
+                    mPosition = 5;
+                }
 
-        // TODO: Steps 6, 7, & 9 - Set a listener on the top button:
+                proceed();
+            }
+        });
 
+        mButtonBottom.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (mPosition == 0) {
+                    mPosition = 1;
+                } else if (mPosition == 1) {
+                    mPosition = 3;
+                } else if (mPosition == 2) {
+                    mPosition = 4;
+                }
 
+                proceed();
+            }
+        });
+    }
 
+    private void proceed() {
+        Story nextStory = mStories[mPosition];
 
-        // TODO: Steps 6, 7, & 9 - Set a listener on the bottom button:
+        mStoryText.setText(nextStory.getText());
 
+        if (nextStory.getFirstAnswer() != 0) {
+            mButtonTop.setText(nextStory.getFirstAnswer());
+        }
+        else {
+            mButtonTop.setText("");
+        }
 
+        if (nextStory.getSecondAnswer() != 0) {
+            mButtonBottom.setText(nextStory.getSecondAnswer());
+        } else {
+            mButtonBottom.setText("");
+        }
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+
+        outState.putInt("position", mPosition);
     }
 }
